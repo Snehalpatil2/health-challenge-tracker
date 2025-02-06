@@ -1,27 +1,84 @@
-# HealthChallengeTracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+# Health Challenge Tracker
 
-## Development server
+## Overview
+The Health Challenge Tracker is a web application built with Angular 14 and Node.js 16. This app allows users to track their workouts, including types and duration, and provides features like search, filtering, pagination, and localStorage support. It is designed to help users keep a log of their fitness activities, with additional features like user editing and workout management.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
+- **Add Workout**: Users can add their workouts (type and time) to the system.
+- **Search & Filter**: Users can filter by name and workout type.
+- **Pagination**: Users can paginate through the workout list for easier navigation.
+- **User Management**: Users can add, edit, or delete their workout data.
+- **Local Storage**: Data is stored persistently using localStorage, so the user's data is preserved between sessions.
 
-## Code scaffolding
+## Technologies Used
+- **Frontend**: Angular 14, Angular Material, Tailwind CSS
+- **Backend**: Node.js 16 (for local server and services)
+- **Other**: ng2-charts (for charting workout progress)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Setup
 
-## Build
+### Prerequisites
+Make sure you have the following installed:
+- Node.js v16 or later
+- Angular CLI v14 or later
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Installation Steps
 
-## Running unit tests
+1. Clone this repository to your local machine:
+    ```bash
+    git clone https://github.com/Snehalpatil2/health-challenge-tracker
+    ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. Navigate to the project folder:
+    ```bash
+    cd health-challenge-tracker
+    ```
 
-## Running end-to-end tests
+3. Install the required dependencies:
+    ```bash
+    npm install
+    ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Running the Application
 
-## Further help
+To run the application in development mode, use the following command:
+```bash
+ng serve
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This will start the Angular development server, and you can access the application in your browser at:
+```
+http://localhost:4200
+```
+
+### Testing
+To run the tests, use:
+```bash
+ng test
+```
+
+This will run the unit tests for your application and ensure everything is working as expected.
+
+## File Structure
+
+```
+/src
+  /app
+    /components
+      health-tracker.component.ts
+      health-tracker.component.html
+      health-tracker.component.css
+    /services
+      local-storage.service.ts
+    app.module.ts
+  /assets
+    (assets and styles files)
+```
+
+## Contributing
+
+Feel free to fork this project and create a pull request with your contributions. For any issues or enhancements, please create an issue in the repository.
+
+##Author 
+- Snehal Jitendra Patil
