@@ -1,0 +1,82 @@
+<div class="container mx-auto p-8 bg-gray-50">
+  <!-- Title -->
+  <h2 class="text-3xl font-semibold text-center text-indigo-700 mb-8 tracking-wide">
+    🏋️‍♂️ Health Challenge Tracker
+  </h2>
+
+  <!-- Add Workout Section -->
+  <div class="card bg-green-50 p-6 shadow-lg rounded-xl transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+    <h3 class="section-title text-2xl font-semibold text-green-600 mb-6">➕ Add Workout</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="newUserName" placeholder="Enter your name" class="w-full">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Workout Type</mat-label>
+        <input matInput [(ngModel)]="newWorkout.type" placeholder="e.g. Running" class="w-full">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Time (minutes)</mat-label>
+        <input matInput [(ngModel)]="newWorkout.minutes" type="number" placeholder="Duration" class="w-full">
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" class="mt-4" (click)="addWorkout()">Add Workout</button>
+  </div>
+
+  <!-- Search Section -->
+  <div class="card bg-purple-50 p-6 shadow-lg rounded-xl mt-10 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+    <h3 class="section-title text-2xl font-semibold text-purple-600 mb-6">🔍 Search Workouts</h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>By Name</mat-label>
+        <input matInput [(ngModel)]="searchName" (input)="applyFilters()" class="w-full">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>By Type</mat-label>
+        <input matInput [(ngModel)]="searchWorkout" (input)="applyFilters()" class="w-full">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Workout List -->
+  <div *ngIf="paginatedUsers.length > 0; else noResults" class="mt-10">
+    <div class="text-center mb-6">
+      <h3 class="text-2xl font-semibold text-indigo-600 mb-4">📊 Workout Summary</h3>
+    </div>
+
+    <div *ngFor="let user of paginatedUsers" class="user-card p-4 bg-indigo-50 shadow-lg rounded-lg mb-8 transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-medium text-indigo-700" *ngIf="!user.isEditing">{{ user.name }}</h3>
+        <input *ngIf="user.isEditing" [(ngModel)]="user.editedName" class="border border-indigo-400 px-2 py-1 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+        <div class="flex gap-2">
+          <button mat-raised-button color="primary" (click)="editUser(user)" *ngIf="!user.isEditing">✏️ Edit</button>
+          <button mat-raised-button color="primary" (click)="saveUserEdit(user)" *ngIf="user.isEditing">💾 Save</button>
+          <button mat-raised-button color="warn" (click)="deleteUser(user)">❌ Delete</button>
+        </div>
+      </div>
+
+      <div *ngFor="let workout of user.editedWorkouts; let i = index" class="workout-item bg-yellow-100 p-4 rounded-lg shadow-sm">
+        <strong>{{ workout.type }}</strong> - {{ workout.minutes }} min
+
+        <div *ngIf="user.isEditing" class="mt-2">
+          <input [(ngModel)]="user.editedWorkouts[i].type" class="border border-indigo-400 px-2 py-1 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          <input [(ngModel)]="user.editedWorkouts[i].minutes" type="number" class="border border-indigo-400 px-2 py-1 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+      </div>
+    </div>
+
+    <mat-paginator [length]="filteredUsers.length" [pageSize]="pageSize" [pageIndex]="currentPage" (page)="changePage($event)" [pageSizeOptions]="[5, 10, 20]" class="mt-6"></mat-paginator>
+  </div>
+
+  <ng-template #noResults>
+    <p class="text-center text-gray-500 text-lg italic">🚫 No results found.</p>
+  </ng-template>
+</div>
